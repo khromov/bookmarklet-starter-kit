@@ -1,0 +1,22 @@
+{
+  "name": "bookmarklet-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "standard.js",
+  "scripts": {
+    "build": "webpack --mode production ./src/bookmarklet.js --output ./build/bookmarklet.build.js && npm run prepend-starter-line && npm run append-void-line && npm run print-bookmarklet",
+    "prepend-starter-line": "awk '{print \"javascript:\" $0}' ./build/bookmarklet.build.js > ./build/tmp.js && cp -f ./build/tmp.js ./build/bookmarklet.build.js && rm ./build/tmp.js",
+    "append-void-line": "echo -n 'void 0;' >> ./build/bookmarklet.build.js",
+    "print-bookmarklet": "printf '==== Your bookmarklet ==== \\n\\n' && cat ./build/bookmarklet.build.js && printf '\\n\\n========\\n'",
+    "build-simple": "node lib/minify.js && npm run prepend-starter-line && npm run append-void-line && npm run print-bookmarklet"
+  },
+  "author": "",
+  "license": "GPLv2",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
